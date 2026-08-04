@@ -32,10 +32,13 @@
     </section>
     <section id="appView" class="hidden">
       <div class="toolbar"><div><h1>教師後台</h1><span id="account" class="muted"></span></div><button id="logoutBtn">登出</button></div>
-      <nav><button class="tab active" data-view="questions">我的題庫</button><button class="tab" data-view="quizzes">我的測驗</button></nav>
+      <nav><button class="tab active" data-view="questions">我的題庫</button><button class="tab" data-view="shared">共同題庫</button><button class="tab" data-view="quizzes">我的測驗</button></nav>
       <section id="questionsView">
         <div class="card"><h2 id="questionFormTitle">新增題目</h2><input id="questionId" type="hidden"><div class="row"><div class="field"><label>英文答案</label><input id="term" placeholder="例如：CARDIAC"></div><div class="field"><label>分類</label><input id="category" placeholder="例如：Anatomy"></div></div><br><div class="field"><label>題目提示</label><textarea id="clue" placeholder="請避免在提示中直接透露答案"></textarea></div><br><div class="row"><button id="saveQuestionBtn" class="primary">儲存題目</button><button id="cancelQuestionBtn" class="hidden">取消編輯</button></div><div id="questionMessage" class="notice"></div></div>
-        <div class="card"><div class="toolbar"><h2>題庫</h2><span id="questionCount" class="muted"></span></div><div style="overflow:auto"><table><thead><tr><th>答案</th><th>提示</th><th>分類</th><th>操作</th></tr></thead><tbody id="questionRows"></tbody></table></div></div>
+        <div class="card"><div class="toolbar"><h2>我的題庫</h2><span id="questionCount" class="muted"></span></div><div style="overflow:auto"><table><thead><tr><th>英文</th><th>中文</th><th>分類</th><th>操作</th></tr></thead><tbody id="questionRows"></tbody></table></div></div>
+      </section>
+      <section id="sharedView" class="hidden">
+        <div class="card"><div class="toolbar"><div><h2>共同題庫</h2><p class="muted">臨床醫學英文 100 題，可複製到我的題庫後建立測驗。</p></div><div class="row"><button id="importClinicalBtn" class="primary">全部加入我的題庫</button><span id="sharedCount" class="muted"></span></div></div><div id="sharedMessage" class="notice"></div><div style="overflow:auto"><table><thead><tr><th>英文</th><th>中文</th><th>操作</th></tr></thead><tbody id="sharedQuestionRows"></tbody></table></div></div>
       </section>
       <section id="quizzesView" class="hidden">
         <div class="card"><h2 id="quizFormTitle">建立測驗</h2><input id="quizId" type="hidden"><div class="row"><div class="field"><label>測驗名稱</label><input id="quizTitle" placeholder="例如：解剖學基礎測驗"></div><div class="field"><label>網址代碼</label><input id="quizSlug" placeholder="例如：anatomy-basic"></div></div><br><label>選擇題目（至少 10 題）</label><div id="questionChecks" class="checks"></div><br><div class="row"><button id="saveQuizBtn" class="primary">儲存測驗</button><button id="cancelQuizBtn" class="hidden">取消編輯</button></div><div id="quizMessage" class="notice"></div></div>
@@ -43,6 +46,7 @@
       </section>
     </section>
   </main>
+  <script src="clinical-questions.js"></script>
   <script src="admin.js"></script>
 </body>
 </html>

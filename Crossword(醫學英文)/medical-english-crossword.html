@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
@@ -31,37 +31,14 @@
 </head>
 <body>
   <main class="shell">
-    <header class="top"><div class="brand"><div class="mark">+</div><div><small>MEDLEX LAB</small><h1>Medical English Crossword</h1></div></div><div class="progress"><div class="progress-label"><span>&#x5B8C;&#x6210;&#x5EA6;</span><strong id="progressText">0 / 6</strong></div><div class="bar"><span id="progressBar"></span></div></div></header>
+    <header class="top"><div class="brand"><div class="mark">+</div><div><small>MEDLEX LAB</small><h1>Medical English Crossword</h1></div></div><div class="progress"><div class="progress-label"><span>&#x5B8C;&#x6210;&#x5EA6;</span><strong id="progressText">0 / 10</strong></div><div class="bar"><span id="progressBar"></span></div></div></header>
     <section class="card">
-      <div class="intro"><div><p class="eyebrow">ANATOMY &amp; CLINICAL BASICS</p><h2>&#x91AB;&#x5B78;&#x82F1;&#x6587;&#x586B;&#x5B57;&#x904A;&#x6232;</h2><p>&#x9EDE;&#x9078;&#x683C;&#x5B50;&#x5F8C;&#x4EE5;&#x9375;&#x76E4;&#x8F38;&#x5165;&#x82F1;&#x6587;&#x55AE;&#x5B57;&#x3002;&#x5B8C;&#x6210;&#x5F8C;&#x6309;&#x300C;&#x6AA2;&#x67E5;&#x7B54;&#x6848;&#x300D;&#x3002;</p></div><div class="score"><span>&#x5F97;&#x5206;</span><b id="score">0 / 6</b></div></div>
+      <div class="intro"><div><p class="eyebrow">ANATOMY &amp; CLINICAL BASICS</p><h2>&#x91AB;&#x5B78;&#x82F1;&#x6587;&#x586B;&#x5B57;&#x904A;&#x6232;</h2><p>&#x9EDE;&#x9078;&#x683C;&#x5B50;&#x5F8C;&#x4EE5;&#x9375;&#x76E4;&#x8F38;&#x5165;&#x82F1;&#x6587;&#x55AE;&#x5B57;&#x3002;&#x5B8C;&#x6210;&#x5F8C;&#x6309;&#x300C;&#x6AA2;&#x67E5;&#x7B54;&#x6848;&#x300D;&#x3002;</p></div><div class="score"><span>&#x5F97;&#x5206;</span><b id="score">0 / 10</b></div></div>
       <div class="play"><div class="grid-panel"><div class="grid" id="grid" aria-label="Medical English crossword grid"></div></div><aside class="side"><section class="clues"><h3>ACROSS</h3><div id="across"></div><h3 style="margin-top:18px">DOWN</h3><div id="down"></div></section></aside></div>
       <div class="actions"><button id="check" type="button">&#x2713; &#x6AA2;&#x67E5;&#x7B54;&#x6848;</button><button id="hint" type="button">&#x1F4A1; &#x7D66;&#x6211;&#x4E00;&#x500B;&#x63D0;&#x793A;</button><button id="reset" type="button">&#x21BB; &#x91CD;&#x65B0;&#x958B;&#x59CB;</button><button id="newQuiz" type="button">&#x2726; &#x65B0;&#x7684;&#x6E2C;&#x9A57;</button></div><div class="message" id="message" aria-live="polite"></div>
     </section><p class="footer">10 medical terms &middot; keyboard friendly &middot; one letter at a time</p>
   </main>
-  <script type="text/plain" id="legacy-script">
-    const words=[
-      {id:1,answer:'BRAIN',clue:'&#x5927;&#x8166;',dir:'across',row:5,col:3},
-      {id:2,answer:'LIVER',clue:'&#x809D;&#x81DF;',dir:'down',row:1,col:4},
-      {id:3,answer:'BLOOD',clue:'&#x8840;&#x6DB2;',dir:'down',row:5,col:3},
-      {id:4,answer:'HEART',clue:'&#x5FC3;&#x81DF;',dir:'across',row:8,col:5},
-      {id:5,answer:'KIDNEY',clue:'&#x814E;&#x81DF;',dir:'down',row:4,col:6},
-      {id:6,answer:'LUNG',clue:'&#x80BA;&#x81DF;',dir:'across',row:1,col:4}
-    ];
-    const size=12, grid=document.querySelector('#grid'), cells={}, wordCells={}; let selected=words[0];
-    function key(r,c){return r+'-'+c} function inWord(word,r,c){const i=word.dir==='across'?c-word.col:r-word.row;return i>=0&&i<word.answer.length&&(word.dir==='across'?r===word.row:c===word.col)}
-    words.forEach(w=>{wordCells[w.id]=[];for(let i=0;i<w.answer.length;i++){const r=w.row+(w.dir==='down'?i:0),c=w.col+(w.dir==='across'?i:0),k=key(r,c);if(!cells[k])cells[k]={r,c,words:[],number:w.id};cells[k].words.push({word:w,index:i});cells[k].number=Math.min(cells[k].number,w.id);wordCells[w.id].push(k)}});
-    for(let r=0;r<size;r++)for(let c=0;c<size;c++){const k=key(r,c),cell=document.createElement('div');cell.className='cell'+(cells[k]?' active':'');if(cells[k]){const n=document.createElement('span');n.className='number';n.textContent=cells[k].number;const input=document.createElement('input');input.maxLength=1;input.autocomplete='off';input.inputMode='text';input.dataset.key=k;input.setAttribute('aria-label','letter at row '+(r+1)+' column '+(c+1));input.addEventListener('focus',()=>selectCell(k));input.addEventListener('input',e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z]/g,'');moveNext(k)});input.addEventListener('keydown',onKey);cell.append(n,input)}grid.append(cell)}
-    function renderClues(){for(const w of words){const b=document.createElement('button');b.className='clue';b.dataset.id=w.id;b.innerHTML='<b>'+w.id+'</b><span>'+w.clue+' <small>('+w.answer.length+')</small></span>';b.onclick=()=>selectWord(w);document.querySelector('#'+(w.dir==='across'?'across':'down')).append(b)}}
-    function selectWord(w){selected=w;document.querySelectorAll('.clue').forEach(x=>x.classList.toggle('selected',Number(x.dataset.id)===w.id));document.querySelector('#focusDirection').textContent=w.dir.toUpperCase();document.querySelector('#focusWord').textContent='Question '+w.id;document.querySelector('#focusClue').innerHTML=w.clue;document.querySelectorAll('.cell').forEach(x=>x.classList.remove('current'));wordCells[w.id].forEach(k=>document.querySelector('[data-key="'+k+'"]').parentElement.classList.add('current'));document.querySelector('[data-key="'+wordCells[w.id][0]+'"]').focus()}
-    function selectCell(k){const choices=cells[k].words;if(!choices.some(x=>x.word.id===selected.id))selected=choices[0].word;document.querySelectorAll('.cell').forEach(x=>x.classList.remove('current'));wordCells[selected.id].forEach(x=>document.querySelector('[data-key="'+x+'"]').parentElement.classList.add('current'));document.querySelectorAll('.clue').forEach(x=>x.classList.toggle('selected',Number(x.dataset.id)===selected.id));document.querySelector('#focusDirection').textContent=selected.dir.toUpperCase();document.querySelector('#focusWord').textContent='Question '+selected.id;document.querySelector('#focusClue').innerHTML=selected.clue}
-    function moveNext(k){const i=wordCells[selected.id].indexOf(k);if(i>=0&&i<wordCells[selected.id].length-1)document.querySelector('[data-key="'+wordCells[selected.id][i+1]+'"]').focus();updateProgress()}
-    function onKey(e){const k=e.target.dataset.key,i=wordCells[selected.id].indexOf(k);if(e.key==='Backspace'&&!e.target.value&&i>0){e.preventDefault();const p=document.querySelector('[data-key="'+wordCells[selected.id][i-1]+'"]').focus()}if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();moveNext(k)}if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();if(i>0)document.querySelector('[data-key="'+wordCells[selected.id][i-1]+'"]').focus()}}
-    function updateProgress(){let complete=0;words.forEach(w=>{const value=wordCells[w.id].map(k=>document.querySelector('[data-key="'+k+'"]').value).join('');if(value===w.answer)complete++});document.querySelector('#progressText').textContent=complete+' / 6';document.querySelector('#score').textContent=complete+' / 6';document.querySelector('#progressBar').style.width=(complete/6*100)+'%'}
-    document.querySelector('#check').onclick=()=>{let correct=0;words.forEach(w=>{let all=true;wordCells[w.id].forEach((k,i)=>{const input=document.querySelector('[data-key="'+k+'"]'),ok=input.value===w.answer[i];input.parentElement.classList.remove('good','bad');if(input.value)input.parentElement.classList.add(ok?'good':'bad');if(!ok)all=false});if(all)correct++});updateProgress();const m=document.querySelector('#message');m.className='message'+(correct===6?'':' error');m.textContent=correct===6?'Excellent! You completed the medical crossword.':'You have '+correct+' correct word'+(correct===1?'':'s')+'. Review the highlighted letters.'}
-    document.querySelector('#hint').onclick=()=>{const w=selected;for(let i=0;i<w.answer.length;i++){const input=document.querySelector('[data-key="'+wordCells[w.id][i]+'"]');if(!input.value){input.value=w.answer[i];input.parentElement.classList.add('good');document.querySelector('#message').className='message';document.querySelector('#message').textContent='One letter was revealed for Question '+w.id+'.';break}}updateProgress()}
-    document.querySelector('#reset').onclick=()=>{document.querySelectorAll('.cell input').forEach(x=>x.value='');document.querySelectorAll('.cell').forEach(x=>x.classList.remove('good','bad'));document.querySelector('#message').textContent='';updateProgress();selectWord(words[0])};
-    renderClues();selectWord(words[0]);
-  </script>
+  <script src="clinical-questions.js"></script>
   <script src="medical-crossword.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-let bank = [
+let bank = window.CLINICAL_QUESTIONS?.map(({ answer, clue }) => ({ answer, clue })) || [
   ['anatomy','Study of body structure'],['abdomen','Belly region between chest and pelvis'],['allergy','Immune reaction to a substance'],['analgesia','Pain relief'],['anemia','Low red blood cell condition'],
   ['antibody','Protein that recognizes an antigen'],['antibiotic','Drug used against bacteria'],['anticoagulant','Drug that prevents clotting'],['artery','Blood vessel carrying blood away from heart'],['asthma','Chronic airway narrowing condition'],
   ['atrium','Upper chamber of the heart'],['bacteria','Single-celled microorganisms'],['bandage','Material used to cover a wound'],['bladder','Organ that stores urine'],['blood','Fluid that circulates through vessels'],
@@ -95,7 +95,7 @@ function candidatePlacements(word, placed, board) {
 }
 
 function createPuzzle() {
-  for (let attempt = 0; attempt < 160; attempt++) {
+  for (let attempt = 0; attempt < 480; attempt++) {
     const pool = shuffle(bank).slice(0, 10).map((item, index) => ({ ...item, id: index + 1 }));
     const board = {};
     const first = pool[0];
@@ -140,6 +140,20 @@ async function loadPublishedQuiz() {
   document.title = quiz.title + ' | MEDLEX';
   const heading = document.querySelector('.intro h2');
   if (heading) heading.textContent = quiz.title;
+}
+
+async function loadSharedBank() {
+  if (new URLSearchParams(location.search).get('quiz')) return;
+  const url = SUPABASE_URL + '/rest/v1/shared_questions?select=term,clue&order=term.asc';
+  try {
+    const response = await fetch(url, { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } });
+    if (!response.ok) return;
+    const rows = await response.json();
+    const loaded = rows
+      .map(item => ({ answer: item.term.toUpperCase().replace(/[^A-Z]/g, ''), clue: item.clue }))
+      .filter(item => item.answer.length >= 2 && item.answer.length <= boardSize);
+    if (loaded.length >= 10) bank = loaded;
+  } catch {}
 }
 
 function clearMarks() {
@@ -298,6 +312,7 @@ document.querySelector('#reset').addEventListener('click', () => {
 document.querySelector('#newQuiz').addEventListener('click', renderPuzzle);
 async function boot() {
   try {
+    await loadSharedBank();
     await loadPublishedQuiz();
     renderPuzzle();
   } catch (error) {

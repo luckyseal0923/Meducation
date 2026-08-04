@@ -1,0 +1,22 @@
+window.CLINICAL_QUESTIONS = [
+  ['低血鉀','HYPOKALEMIA'],['高血鉀','HYPERKALEMIA'],['低血鈉','HYPONATREMIA'],['高血鈉','HYPERNATREMIA'],['低血鈣','HYPOCALCEMIA'],
+  ['高血鈣','HYPERCALCEMIA'],['低血糖','HYPOGLYCEMIA'],['高血糖','HYPERGLYCEMIA'],['酸中毒','ACIDOSIS'],['鹼中毒','ALKALOSIS'],
+  ['貧血','ANEMIA'],['白血病','LEUKEMIA'],['全血球減少','PANCYTOPENIA'],['白血球減少','LEUKOPENIA'],['嗜中性球減少','NEUTROPENIA'],
+  ['高血壓','HYPERTENSION'],['低血壓','HYPOTENSION'],['心律不整','ARRHYTHMIA'],['心絞痛','ANGINA'],['心肌梗塞','INFARCTION'],
+  ['心肌病','CARDIOMYOPATHY'],['心肌炎','MYOCARDITIS'],['心包膜炎','PERICARDITIS'],['心內膜炎','ENDOCARDITIS'],['動脈瘤','ANEURYSM'],
+  ['血栓','THROMBOSIS'],['栓塞','EMBOLISM'],['動脈硬化','ATHEROSCLEROSIS'],['心搏過速','TACHYCARDIA'],['心搏過緩','BRADYCARDIA'],
+  ['肺炎','PNEUMONIA'],['氣喘','ASTHMA'],['肺氣腫','EMPHYSEMA'],['氣胸','PNEUMOTHORAX'],['胸膜炎','PLEURISY'],
+  ['支氣管炎','BRONCHITIS'],['肺結核','TUBERCULOSIS'],['肺不張','ATELECTASIS'],['支氣管擴張','BRONCHIECTASIS'],['呼吸困難','DYSPNEA'],
+  ['咳血','HEMOPTYSIS'],['發紺','CYANOSIS'],['喘鳴','WHEEZING'],['低血氧','HYPOXEMIA'],['缺氧','HYPOXIA'],
+  ['胃炎','GASTRITIS'],['腸胃炎','GASTROENTERITIS'],['闌尾炎','APPENDICITIS'],['胰臟炎','PANCREATITIS'],['肝炎','HEPATITIS'],
+  ['肝硬化','CIRRHOSIS'],['腹膜炎','PERITONITIS'],['膽囊炎','CHOLECYSTITIS'],['膽管炎','CHOLANGITIS'],['黃疸','JAUNDICE'],
+  ['腹水','ASCITES'],['腹瀉','DIARRHEA'],['便祕','CONSTIPATION'],['噁心','NAUSEA'],['嘔吐','VOMITING'],
+  ['腎炎','NEPHRITIS'],['尿毒症','UREMIA'],['膀胱炎','CYSTITIS'],['尿道炎','URETHRITIS'],['血尿','HEMATURIA'],
+  ['蛋白尿','PROTEINURIA'],['少尿','OLIGURIA'],['無尿','ANURIA'],['頻尿','FREQUENCY'],['排尿疼痛','DYSURIA'],
+  ['糖尿病','DIABETES'],['甲狀腺亢進','HYPERTHYROIDISM'],['甲狀腺低下','HYPOTHYROIDISM'],['甲狀腺炎','THYROIDITIS'],['肥胖','OBESITY'],
+  ['敗血症','SEPSIS'],['腦膜炎','MENINGITIS'],['腦炎','ENCEPHALITIS'],['蜂窩性組織炎','CELLULITIS'],['骨髓炎','OSTEOMYELITIS'],
+  ['癲癇','EPILEPSY'],['中風','STROKE'],['失語症','APHASIA'],['共濟失調','ATAXIA'],['譫妄','DELIRIUM'],
+  ['失智症','DEMENTIA'],['偏頭痛','MIGRAINE'],['暈厥','SYNCOPE'],['眩暈','VERTIGO'],['癱瘓','PARALYSIS'],
+  ['骨折','FRACTURE'],['關節炎','ARTHRITIS'],['骨質疏鬆','OSTEOPOROSIS'],['痛風','GOUT'],['燒傷','BURN'],
+  ['休克','SHOCK'],['過敏反應','ALLERGY'],['全身性過敏反應','ANAPHYLAXIS'],['惡性腫瘤','MALIGNANCY'],['轉移','METASTASIS']
+].map(([clue, term]) => ({ term, answer: term, clue }));
