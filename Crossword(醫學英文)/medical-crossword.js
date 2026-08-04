@@ -24,7 +24,7 @@ let bank = window.CLINICAL_QUESTIONS?.map(({ answer, clue }) => ({ answer, clue 
 const SUPABASE_URL = 'https://xghxnxdlnkdezcuxledv.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_5kW2tTUTMJLBNWcmzGSo4w_qz2ZZnoO';
 
-const boardSize = 15;
+const boardSize = 17;
 let words = [], cells = {}, wordCells = {}, selected, focusInput;
 const grid = document.querySelector('#grid');
 const message = document.querySelector('#message');
@@ -96,7 +96,7 @@ function candidatePlacements(word, placed, board) {
 
 function createPuzzle() {
   for (let attempt = 0; attempt < 480; attempt++) {
-    const pool = shuffle(bank).slice(0, 10).map((item, index) => ({ ...item, id: index + 1 }));
+    const pool = shuffle(bank).map((item, index) => ({ ...item, id: index + 1 }));
     const board = {};
     const first = pool[0];
     first.dir = 'across';
@@ -105,7 +105,7 @@ function createPuzzle() {
     const placed = [first];
     addWord(first, board);
     let remaining = pool.slice(1);
-    while (remaining.length) {
+    while (remaining.length && placed.length < 10) {
       const options = remaining.flatMap(word => candidatePlacements(word, placed, board));
       if (!options.length) break;
       const next = options[Math.floor(Math.random() * options.length)];
@@ -113,7 +113,12 @@ function createPuzzle() {
       placed.push(next);
       remaining = remaining.filter(word => word.id !== next.id);
     }
-    if (placed.length === 10) return { placed, board };
+    if (placed.length === 10) {
+      const idMap = new Map(placed.map((word, index) => [word.id, index + 1]));
+      placed.forEach((word, index) => word.id = index + 1);
+      Object.values(board).forEach(cell => cell.wordIds = cell.wordIds.map(oldId => idMap.get(oldId)));
+      return { placed, board };
+    }
   }
   return null;
 }
