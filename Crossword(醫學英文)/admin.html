@@ -7,11 +7,11 @@
   <style>
     :root{--accent:#177a89;--soft:#e7f4f5;--ink:#263238;--muted:#718085;--line:#dfe7e8;--danger:#b44b57}
     *{box-sizing:border-box}body{margin:0;background:#f6f8f8;color:var(--ink);font-family:Arial,"Microsoft JhengHei",sans-serif}
-    button,input,textarea{font:inherit}button{cursor:pointer}.shell{width:min(1080px,calc(100% - 28px));margin:auto;padding:28px 0 50px}
+    button,input,textarea,select{font:inherit}button{cursor:pointer}.shell{width:min(1080px,calc(100% - 28px));margin:auto;padding:28px 0 50px}
     header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}.brand{display:flex;align-items:center;gap:10px}.mark{display:grid;place-items:center;width:36px;height:36px;border:1px solid var(--accent);border-radius:50%;color:var(--accent);font-weight:900}
     h1,h2,h3,p{margin-top:0}.muted{color:var(--muted)}.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:18px}
     .auth{max-width:500px;margin:60px auto}.row{display:flex;gap:10px;flex-wrap:wrap}.field{display:grid;gap:6px;flex:1;min-width:190px}
-    input,textarea{width:100%;padding:11px;border:1px solid #cfdadd;border-radius:7px;background:#fff}textarea{min-height:82px;resize:vertical}
+    input,textarea,select{width:100%;padding:11px;border:1px solid #cfdadd;border-radius:7px;background:#fff}textarea{min-height:82px;resize:vertical}
     button{border:1px solid var(--line);border-radius:7px;padding:10px 14px;background:#fff;color:var(--ink);font-weight:700}.primary{background:var(--accent);border-color:var(--accent);color:#fff}.danger{color:var(--danger)}
     nav{display:flex;gap:8px;margin-bottom:18px}.tab.active{background:var(--accent);color:#fff}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}
     table{width:100%;border-collapse:collapse}th,td{padding:12px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{font-size:12px;color:var(--muted)}
@@ -36,7 +36,7 @@
       <div class="toolbar"><div><h1>教師後台</h1><span id="account" class="muted"></span></div><button id="logoutBtn">登出</button></div>
       <nav><button class="tab active" data-view="questions">我的題庫</button><button class="tab" data-view="shared">共同題庫</button><button class="tab" data-view="quizzes">我的測驗</button></nav>
       <section id="questionsView">
-        <div class="card"><div class="toolbar"><h2>我的題庫</h2><div class="row"><button id="importToQuizBtn">加入我的測驗</button><span id="questionCount" class="muted"></span></div></div><h3 id="questionFormTitle">新增題目</h3><input id="questionId" type="hidden"><div class="row"><div class="field"><label>英文答案</label><input id="term" placeholder="例如：CARDIAC"></div><div class="field"><label>分類</label><input id="category" placeholder="例如：Anatomy"></div></div><br><div class="field"><label>題目提示</label><textarea id="clue" placeholder="請避免在提示中直接透露答案"></textarea></div><br><div class="row"><button id="saveQuestionBtn" class="primary">儲存題目</button><button id="cancelQuestionBtn" class="hidden">取消編輯</button></div><div id="questionMessage" class="notice"></div><div style="overflow:auto;margin-top:18px"><table><thead><tr><th><input id="selectAllQuestions" class="pick" type="checkbox" aria-label="選取全部題目"></th><th><button class="sort" data-sort-table="questions" data-sort-key="term">英文</button></th><th><button class="sort" data-sort-table="questions" data-sort-key="clue">題目提示</button></th><th><button class="sort" data-sort-table="questions" data-sort-key="category">分類</button></th><th>操作</th></tr></thead><tbody id="questionRows"></tbody></table></div></div>
+        <div class="card"><div class="toolbar"><h2>我的題庫</h2><div class="row"><select id="targetQuizSelect" aria-label="選擇要加入的測驗"><option value="">新測驗草稿</option></select><button id="importToQuizBtn">加入選擇的測驗</button><span id="questionCount" class="muted"></span></div></div><h3 id="questionFormTitle">新增題目</h3><input id="questionId" type="hidden"><div class="row"><div class="field"><label>英文答案</label><input id="term" placeholder="例如：CARDIAC"></div><div class="field"><label>分類</label><input id="category" placeholder="例如：Anatomy"></div></div><br><div class="field"><label>題目提示</label><textarea id="clue" placeholder="請避免在提示中直接透露答案"></textarea></div><br><div class="row"><button id="saveQuestionBtn" class="primary">儲存題目</button><button id="cancelQuestionBtn" class="hidden">取消編輯</button></div><div id="questionMessage" class="notice"></div><div style="overflow:auto;margin-top:18px"><table><thead><tr><th><input id="selectAllQuestions" class="pick" type="checkbox" aria-label="選取全部題目"></th><th><button class="sort" data-sort-table="questions" data-sort-key="term">英文</button></th><th><button class="sort" data-sort-table="questions" data-sort-key="clue">題目提示</button></th><th><button class="sort" data-sort-table="questions" data-sort-key="category">分類</button></th><th>操作</th></tr></thead><tbody id="questionRows"></tbody></table></div></div>
       </section>
       <section id="sharedView" class="hidden">
         <div class="card"><div class="toolbar"><div><h2>共同題庫</h2><p class="muted">臨床醫學英文 100 題，可複製到我的題庫後建立測驗。</p></div><div class="row"><button id="importClinicalBtn" class="primary">全部加入我的題庫</button><span id="sharedCount" class="muted"></span></div></div><div id="sharedMessage" class="notice"></div><div style="overflow:auto"><table><thead><tr><th><button class="sort" data-sort-table="shared" data-sort-key="term">英文</button></th><th><button class="sort" data-sort-table="shared" data-sort-key="clue">題目提示</button></th><th>操作</th></tr></thead><tbody id="sharedQuestionRows"></tbody></table></div></div>
@@ -48,6 +48,6 @@
     </section>
   </main>
   <script src="clinical-questions.js?v=20260804"></script>
-  <script src="admin.js?v=20260804-2"></script>
+  <script src="admin.js?v=20260804-3"></script>
 </body>
 </html>
