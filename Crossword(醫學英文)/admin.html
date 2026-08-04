@@ -5,49 +5,46 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>MEDLEX 教師後台</title>
   <style>
-    :root{--accent:#177a89;--soft:#e7f4f5;--ink:#263238;--muted:#718085;--line:#dfe7e8;--danger:#b44b57}
-    *{box-sizing:border-box}body{margin:0;background:#f6f8f8;color:var(--ink);font-family:Arial,"Microsoft JhengHei",sans-serif}
-    button,input,textarea,select{font:inherit}button{cursor:pointer}.shell{width:min(1080px,calc(100% - 28px));margin:auto;padding:28px 0 50px}
-    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}.brand{display:flex;align-items:center;gap:10px}.mark{display:grid;place-items:center;width:36px;height:36px;border:1px solid var(--accent);border-radius:50%;color:var(--accent);font-weight:900}
-    h1,h2,h3,p{margin-top:0}.muted{color:var(--muted)}.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:18px}
-    .auth{max-width:500px;margin:60px auto}.row{display:flex;gap:10px;flex-wrap:wrap}.field{display:grid;gap:6px;flex:1;min-width:190px}
-    input,textarea,select{width:100%;padding:11px;border:1px solid #cfdadd;border-radius:7px;background:#fff}textarea{min-height:82px;resize:vertical}
-    button{border:1px solid var(--line);border-radius:7px;padding:10px 14px;background:#fff;color:var(--ink);font-weight:700}.primary{background:var(--accent);border-color:var(--accent);color:#fff}.danger{color:var(--danger)}
-    nav{display:flex;gap:8px;margin-bottom:18px}.tab.active{background:var(--accent);color:#fff}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}
-    table{width:100%;border-collapse:collapse}th,td{padding:12px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{font-size:12px;color:var(--muted)}
-    .sort{border:0;background:transparent;color:inherit;padding:0;font-size:12px;font-weight:800}.sort::after{content:"↕";margin-left:5px;color:#9aabad}.sort.active::after{content:attr(data-arrow);color:var(--accent)}
-    .badge{display:inline-block;padding:4px 8px;border-radius:99px;background:#edf2f3;font-size:12px}.badge.live{background:#e3f3e8;color:#246b43}
-    .pick{width:auto;margin:0}
-    .checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;max-height:310px;overflow:auto;border:1px solid var(--line);padding:12px;border-radius:8px}.check{display:flex;gap:8px;align-items:flex-start;padding:7px}.check input{width:auto;margin-top:3px}
-    .notice{min-height:24px;color:var(--accent);font-weight:700;margin-top:10px}.hidden{display:none!important}@media(max-width:720px){.checks{grid-template-columns:1fr}table{font-size:14px}.toolbar{align-items:stretch;flex-direction:column}}
+    :root{--accent:#177a89;--accent-dark:#105d68;--soft:#e9f5f6;--ink:#263238;--muted:#718085;--line:#dce6e8;--danger:#b44b57;--bg:#f6f8f8}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,"Microsoft JhengHei",sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:8px;padding:10px 14px;background:#fff;color:var(--ink);font-weight:700}button:hover{border-color:#a9c4c8}button:disabled{cursor:not-allowed;opacity:.5}.primary{background:var(--accent);border-color:var(--accent);color:#fff}.primary:hover{background:var(--accent-dark)}.danger{color:var(--danger)}
+    .shell{width:min(1180px,calc(100% - 28px));margin:auto;padding:26px 0 50px}header,.toolbar,.row{display:flex;align-items:center;gap:10px}.toolbar{justify-content:space-between;flex-wrap:wrap}header{justify-content:space-between;margin-bottom:22px}.brand{display:flex;align-items:center;gap:10px}.mark{display:grid;place-items:center;width:36px;height:36px;border:1px solid var(--accent);border-radius:50%;color:var(--accent);font-weight:900}h1,h2,h3,p{margin-top:0}.muted{color:var(--muted)}.small{font-size:13px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:18px}.auth{max-width:500px;margin:60px auto}
+    nav{display:flex;gap:8px;margin-bottom:18px}.tab.active{background:var(--accent);border-color:var(--accent);color:#fff}.field{display:grid;gap:6px;flex:1;min-width:190px}input,textarea,select{width:100%;padding:11px;border:1px solid #cbd8db;border-radius:8px;background:#fff}textarea{min-height:90px;resize:vertical}.filters{display:grid;grid-template-columns:2fr 1fr auto;gap:10px;margin:16px 0}.notice{min-height:24px;margin-top:10px;color:var(--accent);font-weight:700}
+    table{width:100%;border-collapse:collapse}th,td{padding:12px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}th{font-size:12px;color:var(--muted)}.sort{border:0;background:transparent;color:inherit;padding:0;font-size:12px}.sort::after{content:"↕";margin-left:5px;color:#9aabad}.sort.active::after{content:attr(data-arrow);color:var(--accent)}.pick{width:auto;margin:0}.badge{display:inline-block;padding:4px 9px;border-radius:99px;background:#edf2f3;font-size:12px}.badge.live{background:#e3f3e8;color:#246b43}.actions{display:flex;gap:6px;flex-wrap:wrap}
+    .quiz-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}.panel{border:1px solid var(--line);border-radius:12px;padding:16px;min-height:420px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.question-list{display:grid;gap:8px;max-height:480px;overflow:auto}.question-item{display:flex;align-items:flex-start;gap:10px;padding:11px;border:1px solid var(--line);border-radius:9px;background:#fff}.question-item input{width:auto;margin-top:4px}.question-item .grow{flex:1}.selected-item{background:var(--soft)}
+    dialog{width:min(620px,calc(100% - 28px));border:0;border-radius:14px;padding:0;box-shadow:0 24px 80px #24383c44}dialog::backdrop{background:#26323888}.modal-body{padding:24px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.hidden{display:none!important}
+    @media(max-width:760px){.quiz-grid{grid-template-columns:1fr}.filters{grid-template-columns:1fr}.toolbar{align-items:stretch}nav{overflow:auto}table{font-size:14px}.shell{width:min(100% - 18px,1180px)}}
   </style>
 </head>
 <body>
-  <main class="shell">
-    <header><div class="brand"><div class="mark">+</div><div><b>MEDLEX</b><div class="muted">Medical English quiz platform</div></div></div><a href="medical-english-crossword.html">學員練習</a></header>
-    <section id="authView" class="card auth">
-      <h1>教師帳號</h1><p class="muted">登入後管理自己的題庫與公開測驗。</p>
-      <div class="field"><label>Email</label><input id="email" type="email" autocomplete="email"></div><br>
-      <div class="field"><label>密碼</label><input id="password" type="password" minlength="6" autocomplete="current-password"></div><br>
-      <div class="row"><button id="loginBtn" class="primary">登入</button><button id="signupBtn">建立帳號</button></div>
-      <div id="authMessage" class="notice"></div>
+<main class="shell">
+  <header><div class="brand"><div class="mark">+</div><div><b>MEDLEX</b><div class="muted small">Medical English quiz platform</div></div></div><a href="medical-english-crossword.html">學員練習</a></header>
+  <section id="authView" class="card auth"><h1>教師帳號</h1><p class="muted">登入後管理自己的題庫與公開測驗。</p><div class="field"><label>Email</label><input id="email" type="email" autocomplete="email"></div><br><div class="field"><label>密碼</label><input id="password" type="password" minlength="6" autocomplete="current-password"></div><br><div class="row"><button id="loginBtn" class="primary">登入</button><button id="signupBtn">建立帳號</button></div><div id="authMessage" class="notice"></div></section>
+
+  <section id="appView" class="hidden">
+    <div class="toolbar"><div><h1>教師後台</h1><span id="account" class="muted"></span></div><button id="logoutBtn">登出</button></div>
+    <nav><button class="tab active" data-view="questions">我的題庫</button><button class="tab" data-view="shared">共同題庫</button><button class="tab" data-view="quizzes">我的測驗</button></nav>
+
+    <section id="questionsView">
+      <div class="card"><div class="toolbar"><div><h2>我的題庫</h2><p class="muted">在這裡管理題目，測驗題目請到「我的測驗」配置。</p></div><div class="row"><span id="questionCount" class="muted"></span><button id="newQuestionBtn" class="primary">+新增題目</button></div></div>
+        <div class="filters"><input id="questionSearch" type="search" placeholder="搜尋英文或題目提示"><select id="questionCategory"><option value="">全部分類</option></select><button id="deleteSelectedBtn" class="danger" disabled>刪除勾選</button></div><div id="questionMessage" class="notice"></div>
+        <div style="overflow:auto"><table><thead><tr><th><input id="selectAllQuestions" class="pick" type="checkbox" aria-label="選取顯示的全部題目"></th><th><button class="sort" data-sort-table="questions" data-sort-key="term">英文</button></th><th><button class="sort" data-sort-table="questions" data-sort-key="clue">題目提示</button></th><th><button class="sort" data-sort-table="questions" data-sort-key="category">分類</button></th><th>操作</th></tr></thead><tbody id="questionRows"></tbody></table></div>
+      </div>
     </section>
-    <section id="appView" class="hidden">
-      <div class="toolbar"><div><h1>教師後台</h1><span id="account" class="muted"></span></div><button id="logoutBtn">登出</button></div>
-      <nav><button class="tab active" data-view="questions">我的題庫</button><button class="tab" data-view="shared">共同題庫</button><button class="tab" data-view="quizzes">我的測驗</button></nav>
-      <section id="questionsView">
-        <div class="card"><div class="toolbar"><h2>我的題庫</h2><div class="row"><select id="targetQuizSelect" aria-label="選擇要加入的測驗"><option value="">新測驗草稿</option></select><button id="importToQuizBtn">加入選擇的測驗</button><span id="questionCount" class="muted"></span></div></div><h3 id="questionFormTitle">新增題目</h3><input id="questionId" type="hidden"><div class="row"><div class="field"><label>英文答案</label><input id="term" placeholder="例如：CARDIAC"></div><div class="field"><label>分類</label><input id="category" placeholder="例如：Anatomy"></div></div><br><div class="field"><label>題目提示</label><textarea id="clue" placeholder="請避免在提示中直接透露答案"></textarea></div><br><div class="row"><button id="saveQuestionBtn" class="primary">儲存題目</button><button id="cancelQuestionBtn" class="hidden">取消編輯</button></div><div id="questionMessage" class="notice"></div><div style="overflow:auto;margin-top:18px"><table><thead><tr><th><input id="selectAllQuestions" class="pick" type="checkbox" aria-label="選取全部題目"></th><th><button class="sort" data-sort-table="questions" data-sort-key="term">英文</button></th><th><button class="sort" data-sort-table="questions" data-sort-key="clue">題目提示</button></th><th><button class="sort" data-sort-table="questions" data-sort-key="category">分類</button></th><th>操作</th></tr></thead><tbody id="questionRows"></tbody></table></div></div>
-      </section>
-      <section id="sharedView" class="hidden">
-        <div class="card"><div class="toolbar"><div><h2>共同題庫</h2><p class="muted">臨床醫學英文 100 題，可複製到我的題庫後建立測驗。</p></div><div class="row"><button id="importClinicalBtn" class="primary">全部加入我的題庫</button><span id="sharedCount" class="muted"></span></div></div><div id="sharedMessage" class="notice"></div><div style="overflow:auto"><table><thead><tr><th><button class="sort" data-sort-table="shared" data-sort-key="term">英文</button></th><th><button class="sort" data-sort-table="shared" data-sort-key="clue">題目提示</button></th><th>操作</th></tr></thead><tbody id="sharedQuestionRows"></tbody></table></div></div>
-      </section>
-      <section id="quizzesView" class="hidden">
-        <div class="card"><h2 id="quizFormTitle">建立測驗</h2><input id="quizId" type="hidden"><div class="row"><div class="field"><label>測驗名稱</label><input id="quizTitle" placeholder="例如：解剖學基礎測驗"></div><div class="field"><label>網址代碼</label><input id="quizSlug" placeholder="例如：anatomy-basic"></div></div><br><label>已從我的題庫匯入的題目（至少 10 題）</label><div id="questionChecks" class="checks"></div><br><div class="row"><button id="saveQuizBtn" class="primary">儲存測驗</button><button id="cancelQuizBtn" class="hidden">取消編輯</button></div><div id="quizMessage" class="notice"></div></div>
-        <div class="card"><h2>測驗列表</h2><div style="overflow:auto"><table><thead><tr><th>名稱</th><th>狀態</th><th>分享網址</th><th>操作</th></tr></thead><tbody id="quizRows"></tbody></table></div></div>
-      </section>
+
+    <section id="sharedView" class="hidden"><div class="card"><div class="toolbar"><div><h2>共同題庫</h2><p class="muted">先複製到我的題庫，再到測驗編輯器挑選。</p></div><div class="row"><span id="sharedCount" class="muted"></span><button id="importClinicalBtn" class="primary">全部加入我的題庫</button></div></div><div class="filters"><input id="sharedSearch" type="search" placeholder="搜尋中文或英文"><select id="sharedCategory"><option value="">全部分類</option></select><span></span></div><div id="sharedMessage" class="notice"></div><div style="overflow:auto"><table><thead><tr><th><button class="sort" data-sort-table="shared" data-sort-key="term">英文</button></th><th><button class="sort" data-sort-table="shared" data-sort-key="clue">題目提示</button></th><th>分類</th><th>操作</th></tr></thead><tbody id="sharedQuestionRows"></tbody></table></div></div></section>
+
+    <section id="quizzesView" class="hidden">
+      <div id="quizListView"><div class="card"><div class="toolbar"><div><h2>我的測驗</h2><p class="muted">每份測驗都有獨立題目清單與學員網址。</p></div><button id="newQuizBtn" class="primary">+建立測驗</button></div><div id="quizListMessage" class="notice"></div><div style="overflow:auto"><table><thead><tr><th>測驗名稱</th><th>題數</th><th>狀態</th><th>分享網址</th><th>操作</th></tr></thead><tbody id="quizRows"></tbody></table></div></div></div>
+      <div id="quizEditorView" class="hidden"><div class="card"><div class="toolbar"><div><button id="backToQuizList">← 返回測驗列表</button><h2 id="quizFormTitle" style="margin:12px 0 0">建立測驗</h2></div><div class="row"><button id="previewQuizBtn">預覽</button><button id="saveQuizBtn" class="primary">儲存測驗</button></div></div><input id="quizId" type="hidden"><div class="row"><div class="field"><label>測驗名稱</label><input id="quizTitle" placeholder="例如：電解質臨床英文"></div><div class="field"><label>網址代碼</label><input id="quizSlug" placeholder="例如：electrolyte"></div></div><div id="quizMessage" class="notice"></div></div>
+        <div class="quiz-grid"><section class="panel"><div class="panel-head"><div><h3>我的題庫</h3><span id="availableCount" class="muted small"></span></div><button id="addPickedBtn" class="primary" disabled>加入選取 →</button></div><div class="filters" style="grid-template-columns:2fr 1fr"><input id="quizBankSearch" type="search" placeholder="搜尋題庫"><select id="quizBankCategory"><option value="">全部分類</option></select></div><div id="availableQuestionList" class="question-list"></div></section>
+          <section class="panel"><div class="panel-head"><div><h3>本測驗題目</h3><span id="selectedCount" class="muted small"></span></div><button id="clearQuizQuestions" class="danger">全部移除</button></div><div id="selectedQuestionList" class="question-list"></div></section></div>
+      </div>
     </section>
-  </main>
-  <script src="clinical-questions.js?v=20260804"></script>
-  <script src="admin.js?v=20260804-3"></script>
+  </section>
+</main>
+
+<dialog id="questionDialog"><div class="modal-body"><h2 id="questionFormTitle">新增題目</h2><input id="questionId" type="hidden"><div class="row"><div class="field"><label>英文答案</label><input id="term" placeholder="例如：HYPOKALEMIA"></div><div class="field"><label>分類</label><input id="category" placeholder="例如：電解質與代謝"></div></div><br><div class="field"><label>題目提示</label><textarea id="clue" placeholder="例如：低血鉀"></textarea></div><div id="questionFormMessage" class="notice"></div><div class="modal-actions"><button id="cancelQuestionBtn">取消</button><button id="saveQuestionBtn" class="primary">儲存題目</button></div></div></dialog>
+<script src="clinical-questions.js?v=20260804"></script>
+<script src="admin.js?v=20260804-4"></script>
 </body>
 </html>
