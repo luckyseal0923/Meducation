@@ -15,7 +15,7 @@
     .progress { min-width:180px; } .progress-label { display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px; } .bar { height:5px;background:#e5eaeb;border-radius:99px;overflow:hidden; } .bar span { display:block;height:100%;width:0;background:var(--accent);transition:width .25s; }
     .card { background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:clamp(20px,4vw,38px); max-width:960px; margin:0 auto; }
     .intro { display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:28px; } .eyebrow { color:var(--accent);font-weight:800;font-size:11px;letter-spacing:.12em;margin:0 0 7px; } h2 { font-size:clamp(24px,4vw,34px);margin:0 0 8px;letter-spacing:-.035em;font-weight:750; } .intro p:not(.eyebrow) { color:var(--muted);margin:0;line-height:1.65; }
-    .score { border-left:1px solid var(--line);color:var(--muted);padding:4px 0 4px 18px;min-width:76px;text-align:left;font-size:12px; } .score b { display:block;font-size:20px;color:var(--ink);margin-top:3px; }
+    .score { border-left:1px solid var(--line);color:var(--muted);padding:4px 0 4px 18px;min-width:92px;text-align:left;font-size:12px; } .score b { display:block;font-size:24px;color:var(--ink);margin-top:3px;line-height:1.1; } .score small { display:block;margin-top:4px;color:var(--muted);font-size:11px; }
     .play { display:grid;grid-template-columns:minmax(390px,1.25fr) minmax(230px,.75fr);gap:30px;align-items:start;max-width:820px;margin:0 auto; }
     .grid-panel { background:#fafcfc; padding:16px; border:1px solid var(--line);border-radius:10px;overflow:auto; }
     .grid { width:100%; min-width:390px; display:grid; grid-template-columns:repeat(15,1fr); aspect-ratio:1; gap:2px; background:#dce5e7 url('medical-crossword-background.png') center/cover no-repeat; padding:2px; border-radius:4px; }
@@ -33,12 +33,12 @@
   <main class="shell">
     <header class="top"><div class="brand"><div class="mark">+</div><div><small>MEDLEX LAB</small><h1>Medical English Crossword</h1></div></div><div class="progress"><div class="progress-label"><span>&#x5B8C;&#x6210;&#x5EA6;</span><strong id="progressText">0 / 10</strong></div><div class="bar"><span id="progressBar"></span></div></div></header>
     <section class="card">
-      <div class="intro"><div><p class="eyebrow">ANATOMY &amp; CLINICAL BASICS</p><h2>&#x91AB;&#x5B78;&#x82F1;&#x6587;&#x586B;&#x5B57;&#x904A;&#x6232;</h2><p>&#x9EDE;&#x9078;&#x683C;&#x5B50;&#x5F8C;&#x4EE5;&#x9375;&#x76E4;&#x8F38;&#x5165;&#x82F1;&#x6587;&#x55AE;&#x5B57;&#x3002;&#x5B8C;&#x6210;&#x5F8C;&#x6309;&#x300C;&#x6AA2;&#x67E5;&#x7B54;&#x6848;&#x300D;&#x3002;</p></div><div class="score"><span>&#x5F97;&#x5206;</span><b id="score">0 / 10</b></div></div>
+      <div class="intro"><div><p class="eyebrow">ANATOMY &amp; CLINICAL BASICS</p><h2>&#x91AB;&#x5B78;&#x82F1;&#x6587;&#x586B;&#x5B57;&#x904A;&#x6232;</h2><p>&#x9EDE;&#x9078;&#x683C;&#x5B50;&#x5F8C;&#x4EE5;&#x9375;&#x76E4;&#x8F38;&#x5165;&#x82F1;&#x6587;&#x55AE;&#x5B57;&#x3002;&#x5B8C;&#x6210;&#x5F8C;&#x6309;&#x300C;&#x6AA2;&#x67E5;&#x7B54;&#x6848;&#x300D;&#x3002;</p></div><div class="score"><span>&#x5F97;&#x5206;</span><b id="score">0%</b><small id="scoreDetail">0 / 10 &#x984C;</small></div></div>
       <div class="play"><div class="grid-panel"><div class="grid" id="grid" aria-label="Medical English crossword grid"></div></div><aside class="side"><section class="clues"><h3>ACROSS</h3><div id="across"></div><h3 style="margin-top:18px">DOWN</h3><div id="down"></div></section></aside></div>
       <div class="actions"><button id="check" type="button">&#x2713; &#x6AA2;&#x67E5;&#x7B54;&#x6848;</button><button id="hint" type="button">&#x1F4A1; &#x7D66;&#x6211;&#x4E00;&#x500B;&#x63D0;&#x793A;</button><button id="reset" type="button">&#x21BB; &#x91CD;&#x65B0;&#x958B;&#x59CB;</button><button id="newQuiz" type="button">&#x2726; &#x65B0;&#x7684;&#x6E2C;&#x9A57;</button></div><div class="message" id="message" aria-live="polite"></div>
     </section><p class="footer">10 medical terms &middot; keyboard friendly &middot; one letter at a time</p>
   </main>
   <script src="clinical-questions.js"></script>
-  <script src="medical-crossword.js?v=20260804-2"></script>
+  <script src="medical-crossword.js?v=20260804-3"></script>
 </body>
 </html>

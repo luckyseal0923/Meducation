@@ -269,9 +269,12 @@ function updateProgress() {
     const value = wordCells[word.id].map(id => document.querySelector('[data-key="' + id + '"]').value).join('');
     if (value === word.answer) completed++;
   });
-  document.querySelector('#progressText').textContent = completed + ' / 10';
-  document.querySelector('#score').textContent = completed + ' / 10';
-  document.querySelector('#progressBar').style.width = completed * 10 + '%';
+  const total = words.length || 10;
+  const percentage = Math.round((completed / total) * 100);
+  document.querySelector('#progressText').textContent = completed + ' / ' + total;
+  document.querySelector('#score').textContent = percentage + '%';
+  document.querySelector('#scoreDetail').textContent = completed + ' / ' + total + ' 題';
+  document.querySelector('#progressBar').style.width = percentage + '%';
 }
 
 document.querySelector('#check').addEventListener('click', () => {
