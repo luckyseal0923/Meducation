@@ -37,7 +37,7 @@
 
     <section id="quizzesView" class="hidden">
       <div id="quizListView"><div class="card"><div class="toolbar"><div><h2>我的測驗</h2><p class="muted">每份測驗都有獨立題目清單與學員網址。</p></div><button id="newQuizBtn" class="primary">+建立測驗</button></div><div id="quizListMessage" class="notice"></div><div style="overflow:auto"><table><thead><tr><th>測驗名稱</th><th>題數</th><th>狀態</th><th>分享網址</th><th>操作</th></tr></thead><tbody id="quizRows"></tbody></table></div></div></div>
-      <div id="quizEditorView" class="hidden"><div class="card"><div class="toolbar"><div><button id="backToQuizList">← 返回測驗列表</button><h2 id="quizFormTitle" style="margin:12px 0 0">建立測驗</h2></div><div class="row"><button id="previewQuizBtn">預覽</button><button id="saveQuizBtn" class="primary">儲存測驗</button></div></div><input id="quizId" type="hidden"><div class="row"><div class="field"><label>測驗名稱</label><input id="quizTitle" placeholder="例如：電解質臨床英文"></div><div class="field"><label>網址代碼</label><input id="quizSlug" placeholder="例如：electrolyte"></div></div><div id="quizMessage" class="notice"></div></div>
+      <div id="quizEditorView" class="hidden"><div class="card"><div class="toolbar"><div><button id="backToQuizList">← 返回測驗列表</button><h2 id="quizFormTitle" style="margin:12px 0 0">建立測驗</h2></div><div class="row"><button id="previewQuizBtn">預覽</button><button id="saveQuizBtn" class="primary">儲存測驗</button></div></div><input id="quizId" type="hidden"><input id="quizSlug" type="hidden"><div class="field"><label>測驗名稱</label><input id="quizTitle" placeholder="例如：電解質臨床英文"><small class="muted">學員分享網址會在儲存時自動產生。</small></div><div id="quizMessage" class="notice"></div></div>
         <div class="quiz-grid"><section class="panel"><div class="panel-head"><div><h3>我的題庫</h3><span id="availableCount" class="muted small"></span></div><button id="addPickedBtn" class="primary" disabled>加入選取 →</button></div><div class="filters" style="grid-template-columns:2fr 1fr"><input id="quizBankSearch" type="search" placeholder="搜尋題庫"><select id="quizBankCategory"><option value="">全部標籤</option></select></div><div id="availableQuestionList" class="question-list"></div></section>
           <section class="panel"><div class="panel-head"><div><h3>本測驗題目</h3><span id="selectedCount" class="muted small"></span></div><button id="clearQuizQuestions" class="danger">全部移除</button></div><div id="selectedQuestionList" class="question-list"></div></section></div>
       </div>
@@ -47,6 +47,6 @@
 
 <dialog id="questionDialog"><div class="modal-body"><h2 id="questionFormTitle">新增題目</h2><input id="questionId" type="hidden"><div class="row"><div class="field"><label>英文答案</label><input id="term" placeholder="例如：HYPOKALEMIA"></div></div><br><div class="field"><label>題目提示</label><textarea id="clue" placeholder="例如：低血鉀"></textarea></div><br><div class="field"><label>題目標籤（可複選）</label><div id="questionTagPicker" class="tag-picker"></div><small class="muted">沒有適合標籤時，請先到「標籤管理」建立。</small></div><div id="questionFormMessage" class="notice"></div><div class="modal-actions"><button id="cancelQuestionBtn">取消</button><button id="saveQuestionBtn" class="primary">儲存題目</button></div></div></dialog>
 <script src="clinical-questions.js?v=20260804"></script>
-<script src="admin.js?v=20260804-8"></script>
+<script src="admin.js?v=20260804-9"></script>
 </body>
 </html>
