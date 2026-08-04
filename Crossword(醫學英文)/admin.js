@@ -21,8 +21,8 @@ function renderAll(){renderCategoryOptions();renderQuestions();renderSharedQuest
 function sorted(items,table){const {key,dir}=sortState[table];return [...items].sort((a,b)=>String(a[key]??'').localeCompare(String(b[key]??''),'zh-Hant',{numeric:true,sensitivity:'base'})*(dir==='asc'?1:-1))}
 function updateSortButtons(){document.querySelectorAll('.sort').forEach(button=>{const state=sortState[button.dataset.sortTable];const active=state.key===button.dataset.sortKey;button.classList.toggle('active',active);button.dataset.arrow=state.dir==='asc'?'↑':'↓';button.setAttribute('aria-sort',active?(state.dir==='asc'?'ascending':'descending'):'none')})}
 function setOptions(id,categories){const select=$(id),current=select.value;select.innerHTML='<option value="">全部標籤</option>'+categories.map(value=>`<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join('');select.value=categories.includes(current)?current:''}
-function tagsOf(q){return String(q.category||'').split(/[,，]/).map(tag=>tag.trim()).filter(Boolean)}
-function normalizeTags(value){return [...new Set(String(value).split(/[,，]/).map(tag=>tag.trim()).filter(Boolean))].join(', ')}
+function tagsOf(q){return String(q.category||'').split(/[,，、]/).map(tag=>tag.trim()).filter(Boolean)}
+function normalizeTags(value){return [...new Set(String(value).split(/[,，、]/).map(tag=>tag.trim()).filter(Boolean))].join(', ')}
 function tagChips(q){const tags=tagsOf(q);return tags.length?tags.map(tag=>`<span class="tag">${escapeHtml(tag)}</span>`).join(''):'<span class="muted small">無標籤</span>'}
 function renderCategoryOptions(){const personal=[...new Set(questions.flatMap(tagsOf))].sort();setOptions('questionCategory',personal);setOptions('quizBankCategory',personal);setOptions('sharedCategory',[...new Set(sharedQuestions.flatMap(tagsOf))].sort())}
 function filterItems(items,search,category){const needle=search.trim().toLowerCase();return items.filter(q=>(!category||tagsOf(q).includes(category))&&(!needle||q.term.toLowerCase().includes(needle)||q.clue.toLowerCase().includes(needle)||tagsOf(q).some(tag=>tag.toLowerCase().includes(needle))))}
