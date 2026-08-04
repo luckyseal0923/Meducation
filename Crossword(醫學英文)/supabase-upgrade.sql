@@ -1,5 +1,21 @@
 alter table public.questions add column if not exists category text;
 
+create table if not exists public.tags (
+  id uuid primary key default gen_random_uuid(),
+  owner_id uuid not null references auth.users(id) on delete cascade,
+  name text not null,
+  created_at timestamptz default now(),
+  unique(owner_id, name)
+);
+
+alter table public.tags enable row level security;
+
+drop policy if exists "owners manage tags" on public.tags;
+create policy "owners manage tags"
+on public.tags for all to authenticated
+using (owner_id = auth.uid())
+with check (owner_id = auth.uid());
+
 drop policy if exists "public reads questions in published quizzes" on public.questions;
 create policy "public reads questions in published quizzes"
 on public.questions for select
