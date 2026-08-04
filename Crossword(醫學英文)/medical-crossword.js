@@ -1,4 +1,4 @@
-const bank = [
+let bank = [
   ['anatomy','Study of body structure'],['abdomen','Belly region between chest and pelvis'],['allergy','Immune reaction to a substance'],['analgesia','Pain relief'],['anemia','Low red blood cell condition'],
   ['antibody','Protein that recognizes an antigen'],['antibiotic','Drug used against bacteria'],['anticoagulant','Drug that prevents clotting'],['artery','Blood vessel carrying blood away from heart'],['asthma','Chronic airway narrowing condition'],
   ['atrium','Upper chamber of the heart'],['bacteria','Single-celled microorganisms'],['bandage','Material used to cover a wound'],['bladder','Organ that stores urine'],['blood','Fluid that circulates through vessels'],
@@ -20,6 +20,9 @@ const bank = [
   ['wound','Injury that breaks the skin'],['xray','Image made using radiation'],['biopsy','Sample of tissue for examination'],['diabetes','Disease involving high blood sugar'],['glucose','A simple blood sugar'],
   ['insulin','Hormone that lowers blood sugar'],['lesion','Area of damaged tissue'],['nausea','Feeling that you may vomit'],['obesity','Excess body fat'],['pharmacy','Place where medicines are dispensed']
 ].map(([answer, clue]) => ({ answer: answer.toUpperCase(), clue }));
+
+const SUPABASE_URL = 'https://xghxnxdlnkdezcuxledv.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_5kW2tTUTMJLBNWcmzGSo4w_qz2ZZnoO';
 
 const boardSize = 15;
 let words = [], cells = {}, wordCells = {}, selected, focusInput;
@@ -113,6 +116,30 @@ function createPuzzle() {
     if (placed.length === 10) return { placed, board };
   }
   return null;
+}
+
+async function loadPublishedQuiz() {
+  const slug = new URLSearchParams(location.search).get('quiz');
+  if (!slug) return;
+  message.textContent = 'Loading quiz...';
+  const select = 'id,title,quiz_questions(question_id,questions(term,clue))';
+  const url = SUPABASE_URL + '/rest/v1/quizzes?select=' + encodeURIComponent(select) +
+    '&slug=eq.' + encodeURIComponent(slug) + '&is_published=eq.true&limit=1';
+  const response = await fetch(url, { headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY } });
+  if (!response.ok) throw new Error('Quiz request failed');
+  const rows = await response.json();
+  const quiz = rows[0];
+  if (!quiz) throw new Error('Quiz not found or not published');
+  const loaded = quiz.quiz_questions
+    .map(item => item.questions)
+    .filter(Boolean)
+    .map(item => ({ answer: item.term.toUpperCase().replace(/[^A-Z]/g, ''), clue: item.clue }))
+    .filter(item => item.answer.length >= 2 && item.answer.length <= boardSize);
+  if (loaded.length < 10) throw new Error('This quiz needs at least 10 usable questions');
+  bank = loaded;
+  document.title = quiz.title + ' | MEDLEX';
+  const heading = document.querySelector('.intro h2');
+  if (heading) heading.textContent = quiz.title;
 }
 
 function clearMarks() {
@@ -269,4 +296,13 @@ document.querySelector('#reset').addEventListener('click', () => {
 });
 
 document.querySelector('#newQuiz').addEventListener('click', renderPuzzle);
-renderPuzzle();
+async function boot() {
+  try {
+    await loadPublishedQuiz();
+    renderPuzzle();
+  } catch (error) {
+    message.className = 'message error';
+    message.textContent = error.message;
+  }
+}
+boot();
